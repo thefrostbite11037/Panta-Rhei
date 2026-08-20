@@ -34,6 +34,11 @@
             Name="MoveDown"
             StyleClasses="OpenLeft"
             Text="Down"/>
+        <CheckBox
+            Access="Public"
+            HorizontalAlignment="Right"
+            Name="IsActiveCheckbox"
+            Text="Active"/>
         <Button
             Access="Public"
             ModulateSelfOverride="Red"

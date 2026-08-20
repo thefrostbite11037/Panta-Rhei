@@ -3,11 +3,13 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Utility;
 
+
 namespace Content.Client._HL.Brainwashing.CompulsionsUI.EditUI;
 
 [GenerateTypedNameReferences]
 public sealed partial class CompulsionContainer : BoxContainer
 {
+    public bool IsSelected => IsActiveCheckbox.Pressed;
     public CompulsionContainer(string? compulsion = null)
     {
         RobustXamlLoader.Load(this);

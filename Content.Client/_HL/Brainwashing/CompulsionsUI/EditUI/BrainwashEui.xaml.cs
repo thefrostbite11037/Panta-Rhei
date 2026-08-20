@@ -29,7 +29,7 @@ public sealed partial class BrainwashEui : FancyWindow
 
         foreach (var control in CompulsionContainer.Children)
         {
-            if (control is not CompulsionContainer compulsionControl)
+            if (control is not CompulsionContainer compulsionControl || !compulsionControl.IsSelected)
                 continue;
 
             var compulsionText = Rope.Collapse(compulsionControl.CompulsionContent.TextRope).Trim();
@@ -63,6 +63,14 @@ public sealed partial class BrainwashEui : FancyWindow
         SetCompulsions(_compulsions);
     }
 
+    private void ToggleActive(int index)
+    {
+        Console.WriteLine(_compulsions[index]);
+        _compulsions = GetCompulsions();
+
+        SetCompulsions(_compulsions);
+    }
+
     private void Delete(int index)
     {
         _compulsions = GetCompulsions();
@@ -82,6 +90,7 @@ public sealed partial class BrainwashEui : FancyWindow
             var compulsionControl = new CompulsionContainer(compulsion);
             compulsionControl.MoveUp.OnPressed += _ => MoveUp(index);
             compulsionControl.MoveDown.OnPressed += _ => MoveDown(index);
+            compulsionControl.IsActiveCheckbox.OnToggled += _ => ToggleActive(index);
             compulsionControl.Delete.OnPressed += _ => Delete(index);
             CompulsionContainer.AddChild(compulsionControl);
         }
