@@ -6,7 +6,7 @@ namespace Content.Server._HL.Brainwashing;
 
 public sealed class BrainwashViewer : BaseEui
 {
-    private List<string> _compulsions = [];
+    private List<(string, bool)> _compulsions = [];
 
     public void UpdateCompulsions(BrainwashedComponent brainwashedComponent)
     {

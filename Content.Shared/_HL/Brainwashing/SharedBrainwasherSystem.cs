@@ -29,7 +29,7 @@ public sealed partial class BrainwasherComponent : Component
     public TimeSpan ChardingDuration = TimeSpan.FromSeconds(3);
 
     [DataField, ViewVariables, AutoNetworkedField]
-    public List<string> Compulsions = [];
+    public List<(string, bool)> Compulsions = [];
 
     [DataField, AutoNetworkedField]
     public string ConfigureText = "Configure Compulsions";

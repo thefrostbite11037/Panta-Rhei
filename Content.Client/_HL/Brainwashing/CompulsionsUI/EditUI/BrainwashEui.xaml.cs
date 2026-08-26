@@ -8,7 +8,7 @@ namespace Content.Client._HL.Brainwashing.CompulsionsUI.EditUI;
 [GenerateTypedNameReferences]
 public sealed partial class BrainwashEui : FancyWindow
 {
-    private List<string> _compulsions = [];
+    private List<(string, bool)> _compulsions = [];
 
     public BrainwashEui()
     {
@@ -19,17 +19,17 @@ public sealed partial class BrainwashEui : FancyWindow
     private void AddNewCompulsion()
     {
         _compulsions = GetCompulsions();
-        _compulsions.Add("");
+        _compulsions.Add(("", false));
         SetCompulsions(_compulsions);
     }
 
-    public List<string> GetCompulsions()
+    public List<(string, bool)> GetCompulsions()
     {
-        var newCompulsions = new List<string>();
+        var newCompulsions = new List<(string, bool)>();
 
         foreach (var control in CompulsionContainer.Children)
         {
-            if (control is not CompulsionContainer compulsionControl || !compulsionControl.IsSelected)
+            if (control is not CompulsionContainer compulsionControl)
                 continue;
 
             var compulsionText = Rope.Collapse(compulsionControl.CompulsionContent.TextRope).Trim();
@@ -37,7 +37,7 @@ public sealed partial class BrainwashEui : FancyWindow
             if (string.IsNullOrWhiteSpace(compulsionText))
                 continue;
 
-            newCompulsions.Add(compulsionText);
+            newCompulsions.Add((compulsionText, compulsionControl.IsSelected));
         }
 
         return newCompulsions;
@@ -65,9 +65,9 @@ public sealed partial class BrainwashEui : FancyWindow
 
     private void ToggleActive(int index)
     {
-        Console.WriteLine(_compulsions[index]);
+        //todo: this has index out of bounds error :( why? let's find out
         _compulsions = GetCompulsions();
-
+        _compulsions[index] = (_compulsions[index].Item1, !_compulsions[index].Item2);
         SetCompulsions(_compulsions);
     }
 
@@ -79,7 +79,7 @@ public sealed partial class BrainwashEui : FancyWindow
         SetCompulsions(_compulsions);
     }
 
-    public void SetCompulsions(List<string> compulsions)
+    public void SetCompulsions(List<(string, bool)> compulsions)
     {
         _compulsions = compulsions;
         CompulsionContainer.RemoveAllChildren();
@@ -87,10 +87,10 @@ public sealed partial class BrainwashEui : FancyWindow
         {
             var index = i;
             var compulsion = compulsions[i];
-            var compulsionControl = new CompulsionContainer(compulsion);
+            var compulsionControl = new CompulsionContainer(compulsion.Item1);
             compulsionControl.MoveUp.OnPressed += _ => MoveUp(index);
             compulsionControl.MoveDown.OnPressed += _ => MoveDown(index);
-            compulsionControl.IsActiveCheckbox.OnToggled += _ => ToggleActive(index);
+            compulsionControl.IsActiveCheckbox.OnPressed += _ => ToggleActive(index);
             compulsionControl.Delete.OnPressed += _ => Delete(index);
             CompulsionContainer.AddChild(compulsionControl);
         }

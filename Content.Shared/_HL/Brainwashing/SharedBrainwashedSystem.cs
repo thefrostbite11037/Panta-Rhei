@@ -4,14 +4,14 @@ namespace Content.Shared._HL.Brainwashing;
 
 public class SharedBrainwashedSystem : EntitySystem
 {
-    public bool SetCompulsions(EntityUid uid, BrainwashedComponent brainwashedComponent, List<string> compulsions)
+    public bool SetCompulsions(EntityUid uid, BrainwashedComponent brainwashedComponent, List<(string, bool)> compulsions)
     {
         brainwashedComponent.Compulsions = compulsions;
         DirtyField(uid, brainwashedComponent, nameof(brainwashedComponent.Compulsions));
         return true;
     }
 
-    public bool SetCompulsions(EntityUid uid, BrainwasherComponent brainwasherComponent, List<string> compulsions)
+    public bool SetCompulsions(EntityUid uid, BrainwasherComponent brainwasherComponent, List<(string, bool)> compulsions)
     {
         brainwasherComponent.Compulsions = compulsions;
         DirtyField(uid, brainwasherComponent, nameof(brainwasherComponent.Compulsions));

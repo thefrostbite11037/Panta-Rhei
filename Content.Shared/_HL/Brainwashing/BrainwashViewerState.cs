@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._HL.Brainwashing;
 
 [Serializable, NetSerializable]
-public sealed class BrainwashViewerState(List<string> compulsions) : EuiStateBase
+public sealed class BrainwashViewerState(List<(string, bool)> compulsions) : EuiStateBase
 {
-    public List<string> Compulsions { get; } = compulsions;
+    public List<(string, bool)> Compulsions { get; } = compulsions;
 }

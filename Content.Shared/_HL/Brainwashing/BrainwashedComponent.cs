@@ -7,7 +7,7 @@ namespace Content.Shared._HL.Brainwashing;
 public sealed partial class BrainwashedComponent : Component
 {
     [DataField, ViewVariables, AutoNetworkedField]
-    public List<string> Compulsions = [];
+    public List<(string, bool)> Compulsions = [];
 
     [DataField]
     public EntProtoId ActionPrototype = "ActionOpenCompulsionsMenu";

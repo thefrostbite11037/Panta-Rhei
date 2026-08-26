@@ -13,13 +13,16 @@ public sealed partial class BrainwashMenu : FancyWindow
         IoCManager.InjectDependencies(this);
     }
 
-    public void Populate(List<string> compulsions)
+    public void Populate(List<(string, bool)> compulsions)
     {
         CompulsionDisplayContainer.Children.Clear();
 
         foreach (var compulsion in compulsions)
         {
-            CompulsionDisplayContainer.AddChild(new CompulsionDisplay(compulsion));
+            if (compulsion.Item2)
+            {
+                CompulsionDisplayContainer.AddChild(new CompulsionDisplay(compulsion.Item1));
+            }
         }
     }
 }

@@ -4,19 +4,19 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._HL.Brainwashing;
 
 [Serializable, NetSerializable]
-public sealed class BrainwashEuiState(List<string> compulsions, NetEntity target) : EuiStateBase
+public sealed class BrainwashEuiState(List<(string, bool)> compulsions, NetEntity target) : EuiStateBase
 {
-    public List<string> Compulsions { get; } = compulsions;
+    public List<(string, bool)> Compulsions { get; } = compulsions;
     public NetEntity Target { get; } = target;
 }
 
 [Serializable, NetSerializable]
 public sealed class BrainwashSaveMessage : EuiMessageBase
 {
-    public List<string> Compulsions { get; }
+    public List<(string, bool)> Compulsions { get; }
     public NetEntity Target { get; }
 
-    public BrainwashSaveMessage(List<string> compulsions, NetEntity target)
+    public BrainwashSaveMessage(List<(string, bool)> compulsions, NetEntity target)
     {
         IoCManager.InjectDependencies(this);
         Compulsions = compulsions;

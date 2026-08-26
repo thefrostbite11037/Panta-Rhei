@@ -8,7 +8,7 @@ public sealed class BrainwashEditor(SharedBrainwashedSystem sharedBrainwashedSys
 {
     private readonly EntityManager _entityManager = IoCManager.Resolve<EntityManager>();
     private EntityUid _target;
-    private List<string> _compulsions = [];
+    private List<(string, bool)> _compulsions = [];
 
     public override void HandleMessage(EuiMessageBase msg)
     {
